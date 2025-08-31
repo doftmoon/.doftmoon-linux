@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# put to /usr/local/bin/timer
+
+if [ -z "$1" ]; then
+   echo "Usage: $0 <minutes>"
+   exit 1
+fi
+
+MINUTES="$1"
+TOTAL_SECONDS=$((MINUTES * 60))
+NOTIFICATION_BODY="Timer for $MINUTES minute(s) has finished :#"
+
+(
+   sleep "$TOTAL_SECONDS"
+   notify-send -i dialog-information -u normal -t 0 "Timer Finished!" "$NOTIFICATION_BODY"
+) &

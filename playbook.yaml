@@ -1,0 +1,15 @@
+- name: Setup linux
+  hosts: localhost
+  gather_facts: true
+
+  roles:
+    - role: get_utils
+      tags: ["1", "utils"]
+
+    - role: get_programs
+      tags: ["2", "programs"]
+
+    - role: get_dotfiles
+      tags: ["3", "df"]
+      vars:
+        github_user: "doftmoon"
