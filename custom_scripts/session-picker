@@ -1,0 +1,66 @@
+#!/usr/bin/env zsh
+# put in ~/.local/bin/session-picker
+# written by doftmoon to manage the system according to the env
+setopt -e
+source doftmoon-shell-utils
+
+MONITOR_PRIMARY='eDP-1'
+MONITOR_SECONDARY='HDMI-A-1'
+
+
+home_profile() {
+   info 'Activating HOME profile...'
+   #firewall-configer trusted
+
+   hyprctl dispatch exec "[workspace 1 silent]" ghostty
+   hyprctl dispatch exec "[workspace 2 silent]" app.zen_browser.zen
+   hyprctl dispatch exec "[workspace 3 silent]" com.spotify.Client
+}
+
+work_profile() {
+   info 'Activating WORK profile...'
+   #firewall-configer trusted
+
+   hyprctl dispatch exec "[workspace 1 silent]" ghostty
+   hyprctl dispatch exec "[workspace 2 silent]" app.zen_browser.zen
+}
+
+public_profile() {
+   info 'Activating PUBLIC profile...'
+   iwctl station wlan0 disconnect
+   #firewall-configer public
+   iwctl station wlan0 scan
+
+   hyprctl dispatch exec "[workspace 1 silent]" ghostty
+}
+
+picker() {
+   local options=("1) HOME" "2) WORK" "3) PUBLIC")
+   local choice
+   choice=$(printf "%s\n" "${options[@]}" | fzf --prompt="Select your session profile: " --height=20% --border --cycle)
+   sudo -v
+
+   case "$choice" in
+      "1) HOME")
+         home_profile
+         ;;
+      "2) WORK")
+         work_profile
+         ;;
+      "3) PUBLIC")
+         public_profile
+         ;;
+      *)
+         error "No profile selected. Aborting setup."
+         ;;
+   esac
+
+   info "Session setup complete."
+}
+
+main() {
+   ensure_not_root
+   picker
+}
+
+main

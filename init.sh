@@ -51,7 +51,7 @@ detect_package_manager() {
 
 install_dependencies() {
    local packages_apt='build-essential file curl git pipx'
-   local packages_pacman='base-devel file curl git pipx'
+   local packages_pacman='base-devel file curl git python-pipx'
 
    info 'Installing dependencies via package manager.'
    if [ "$PKG_MANAGER" = 'apt' ]; then
@@ -72,8 +72,8 @@ install_dependencies() {
 install_ansible() {
    info 'Checking for ansible installation...'
    if ! command -v ansible &> /dev/null; then
-      pipx install ansible-core
-      pipx ensurepath
+      pipx install ansible
+      sudo pipx ensurepath --global
    else
       info 'Ansible is already installed.'
    fi
@@ -91,7 +91,7 @@ ensure_latest_repo() {
 
 run_ansible() {
    info 'Starting ansible play...'
-   ~/.local/bin/ansible-playbook playbook.yaml -e "github_user=$USER"
+   ~/.local/bin/ansible-playbook --ask-become-pass playbook.yaml -e "github_user=$USER"
 }
 
 main() {

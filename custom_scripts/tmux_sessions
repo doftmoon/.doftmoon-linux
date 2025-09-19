@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-# put to /usr/local/bin/tmux_sessions
+# put to ~/.local/bin/tmux_sessions
 
 attach_session() {
     session_name="$1"

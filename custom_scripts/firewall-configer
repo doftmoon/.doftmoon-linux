@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# put in ~/.local/bin/network-configer
+set -e
+source doftmoon-shell-utils
+
+apply_trusted_profile() {
+   info "Applying TRUSTED firewall profile..."
+   sudo ufw default deny incoming
+   sudo ufw default allow outgoing
+   sudo ufw enable
+   sudo ufw status verbose
+   info "TRUSTED profile applied."
+}
+
+apply_public_profile() {
+   info "Applying PUBLIC firewall profile..."
+   sudo ufw --force reset
+   sudo ufw default deny incoming
+   sudo ufw default deny outgoing
+   sudo ufw allow out to any port 53
+   sudo ufw allow out to any port 80
+   sudo ufw allow out to any port 443
+   sudo ufw --force enable
+   sudo ufw status verbose
+   info "PUBLIC profile applied, outgoing traffic is restricted!"
+}
+
+reset_firewall() {
+   info "Reseting firewall..."
+   sudo ufw reset
+   sudo ufw verbose
+}
+
+network_picker() {
+   local profile_choice="$1"
+
+   # If no argument is provided, show an interactive fzf menu
+   if [[ -z "$profile_choice" ]]; then
+      local options=("1) Trusted" "2) Public" "3) Reset")
+      local selection
+      selection=$(printf "%s\n" "${options[@]}" | fzf --prompt="Select a firewall profile to apply: " --height=20% --border --cycle)
+
+      case "$selection" in
+         "1) Trusted") profile_choice="trusted" ;;
+         "2) Public") profile_choice="public" ;;
+         "3) Reset") profile_choice="reset" ;;
+         *) error "No profile selected. Aborting." ;;
+      esac
+    fi
+
+   case "$profile_choice" in
+      "trusted")
+         apply_trusted_profile
+         ;;
+      "public")
+         apply_public_profile
+         ;;
+      "reset")
+         reset_firewall
+         ;;
+      *)
+         error "Unknown profile: $profile_choice. Use 'trusted', 'public', or 'reset'."
+         ;;
+    esac
+}
+
+main() {
+   ensure_not_root
+   network_picker "$1"
+   sleep 2
+}
+
+main "$1"

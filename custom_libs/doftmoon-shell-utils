@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# put in ~/.local/lib/doftmoon-shell-utils
+
+SAKURA='\033[38;2;219;184;213m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+info() {
+   echo -e "${SAKURA}INFO: $1${NC}"
+}
+
+error() {
+   echo -e "${RED}ERROR:${NC} $1" >&2
+   exit 1
+}
+
+ensure_not_root() {
+   if [[ "$EUID" -eq 0 ]]; then
+      error "This script should not be run as root. It will use 'sudo' where needed."
+   fi
+}

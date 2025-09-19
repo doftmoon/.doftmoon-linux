@@ -10,6 +10,6 @@
       tags: ["2", "programs"]
 
     - role: get_dotfiles
-      tags: ["3", "df"]
+      tags: ["3", "dotfiles"]
       vars:
         github_user: "doftmoon"

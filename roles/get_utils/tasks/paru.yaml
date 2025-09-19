@@ -22,7 +22,7 @@
           ansible.builtin.git:
             repo: https://aur.archlinux.org/paru-bin.git
             dest: /tmp/paru-bin
-          become: false
+          become: true
 
         - name: Build the paru package
           ansible.builtin.command: makepkg -si --noconfirm

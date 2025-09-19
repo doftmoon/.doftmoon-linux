@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# put to /usr/local/bin/timer
+# put to ~/.local/bin/timer
 
 if [ -z "$1" ]; then
    echo "Usage: $0 <minutes>"
