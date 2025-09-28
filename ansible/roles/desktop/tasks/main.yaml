@@ -1,0 +1,3 @@
+- name: Install Hyprland
+  ansible.builtin.import_tasks: hyprland.yaml
+  when: ansible_distribution == 'Archlinux'

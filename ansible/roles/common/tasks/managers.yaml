@@ -4,18 +4,18 @@
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
-- name: Install pyenv
-  ansible.builtin.shell: >
-    curl -fsSL https://pyenv.run | bash
-  args:
-    creates: "{{ ansible_env.HOME }}/.pyenv/bin"
+#- name: Install pyenv
+#  ansible.builtin.shell: >
+#    curl -fsSL https://pyenv.run | bash
+#  args:
+#    creates: "{{ ansible_env.HOME }}/.pyenv/bin"
 
 - name: Install rustup
   ansible.builtin.shell: >
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   args:
     creates: "{{ ansible_env.HOME }}/.cargo/rustup/bin"
-
 #- name: Install paru on Arch Linux
 #  ansible.builtin.include_tasks: paru.yaml
 #  when: ansible_distribution == 'Archlinux'
+

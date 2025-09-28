@@ -1,0 +1,24 @@
+- name: Install blueman via package manager
+  ansible.builtin.package:
+    name: blueman
+    state: present
+
+- name: Install ghostty via package manager
+  ansible.builtin.package:
+    name: ghostty
+    state: present
+
+- name: Install tmux via package manager
+  ansible.builtin.package:
+    name: tmux
+    state: present
+
+- name: Install zellij via package manager
+  ansible.builtin.package:
+    name: zellij
+    state: present
+
+- name: Install neovim via package manager
+  ansible.builtin.package:
+    name: neovim
+    state: present

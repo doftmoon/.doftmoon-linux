@@ -1,0 +1,21 @@
+- name: Configure my Linux
+  hosts: localhost
+  gather_facts: true
+
+  roles:
+    - role: common
+      tags: ["1", "common", "core"]
+
+    - role: desktop
+      tags: ["2", "desktop"]
+
+    - role: get_apps
+      tags: ["3", "apps"]
+
+    - role: security
+      tags: ["4", "sec"]
+
+    - role: dotfiles
+      tags: ["5", "dotfiles"]
+      vars:
+        github_user: "doftmoon"

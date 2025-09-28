@@ -11,8 +11,26 @@
     state: present
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
+- name: Install Flatseal via flatpak
+  community.general.flatpak:
+    name: com.github.tchx84.Flatseal
+    state: present
+    remote: flathub
+
 - name: Install Zen browser via flatpak
   community.general.flatpak:
     name: app.zen_browser.zen
+    state: present
+    remote: flathub
+
+- name: Install Spotify via flatpak
+  community.general.flatpak:
+    name: com.spotify.Client
+    state: present
+    remote: flathub
+
+- name: Install PolyMC via flatpak
+  community.general.flatpak:
+    name: org.polymc.PolyMC
     state: present
     remote: flathub

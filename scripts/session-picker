@@ -14,7 +14,7 @@ home_profile() {
 
    hyprctl dispatch exec "[workspace 1 silent]" ghostty
    hyprctl dispatch exec "[workspace 2 silent]" app.zen_browser.zen
-   hyprctl dispatch exec "[workspace 3 silent]" com.spotify.Client
+   hyprctl dispatch exec "[workspace 4 silent]" com.spotify.Client
 }
 
 work_profile() {
@@ -23,6 +23,7 @@ work_profile() {
 
    hyprctl dispatch exec "[workspace 1 silent]" ghostty
    hyprctl dispatch exec "[workspace 2 silent]" app.zen_browser.zen
+   hyprctl dispatch exec "[workspace 4 silent]" com.spotify.Client
 }
 
 public_profile() {

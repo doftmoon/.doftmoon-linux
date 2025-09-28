@@ -1,0 +1,3 @@
+applauncher: "wofi" # wofi (default)
+screencapture: "grim" # grim (default)
+wallpaper: "hyprpaper" # hyprpaper (default) | mpvpaper | swww

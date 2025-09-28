@@ -1,30 +1,13 @@
 #!/usr/bin/env bash
 # Script to install all dep and automate init process
-# NOTICE: run only 1 "one" time!!! Rn hove not enough time to test everything :3
-set -e
+# NOTICE: run only 1 "one" time!!! Rn have not enough time to test everything :3
+set -euo pipefail
 
 USER='doftmoon'
 GIT_REPO='https://github.com/doftmoon/.doftmoon-linux.git'
 PKG_MANAGER='unknown'
 
-RED='\033[0;31m'
-SAKURA='\033[38;2;219;184;213m'
-NC='\033[0m'
-
-info() {
-   echo -e "${SAKURA}INFO: $1${NC}"
-}
-
-error() {
-   echo -e "${RED}ERROR:${NC} $1" >&2
-   exit 1
-}
-
-ensure_not_root() {
-   if [[ $EUID -eq 0 ]]; then
-      error 'This script must be run as a normal user with sudo priveleges, not as root!'
-   fi
-}
+source ./custom_libs/doftmoon-shell-utils
 
 get_sudo_session() {
    sudo -v
@@ -91,7 +74,7 @@ ensure_latest_repo() {
 
 run_ansible() {
    info 'Starting ansible play...'
-   ~/.local/bin/ansible-playbook --ask-become-pass playbook.yaml -e "github_user=$USER"
+   (cd ansible && ~/.local/bin/ansible-playbook -K playbook.yaml -e "github_user=$USER")
 }
 
 main() {

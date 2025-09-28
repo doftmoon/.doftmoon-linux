@@ -1,7 +1,0 @@
-# download archlinux
-
-# on live usb
-
-> nano /etc/systemd/timesyncd.conf
-> systemctl restart systemd-timesyncd.service
-> archinstall

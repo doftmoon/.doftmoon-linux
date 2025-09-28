@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# put in ~/.local/bin/network-configer
-set -e
+# put in ~/.local/bin/firewall-configer
+set -euo pipefail
 source doftmoon-shell-utils
 
 apply_trusted_profile() {

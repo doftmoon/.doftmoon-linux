@@ -1,0 +1,39 @@
+- name: Install Audio
+  block:
+    - name: Install pipewire
+      ansible.builtin.package:
+        name: pipewire
+        state: present
+
+    - name: Install pipewire-pulse
+      ansible.builtin.package:
+        name: pipewire-pulse
+        state: present
+
+    - name: Install pipewire-alsa
+      ansible.builtin.package:
+        name: pipewire-alsa
+        state: present
+
+    - name: Install pipewire-jack
+      ansible.builtin.package:
+        name: pipewire-jack
+        state: present
+
+    - name: Install alsa-utils
+      ansible.builtin.package:
+        name: alsa-utils
+        state: present
+
+- name: Install bluetooth
+  block:
+    - name: Install bluez
+      ansible.builtin.package:
+        name: bluez
+        state: present
+
+    - name: Install bluez-utils
+      ansible.builtin.package:
+        name: bluez-utils
+        state: present
+#- name: Install media
