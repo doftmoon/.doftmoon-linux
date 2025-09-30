@@ -1,3 +1,4 @@
 applauncher: "wofi" # wofi (default)
-screencapture: "grim" # grim (default)
 wallpaper: "hyprpaper" # hyprpaper (default) | mpvpaper | swww
+taskbar: "waybar" # waybar (default)
+screencapture: "grim" # grim (default)

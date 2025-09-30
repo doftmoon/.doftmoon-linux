@@ -14,8 +14,7 @@
   ansible.builtin.shell: >
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   args:
-    creates: "{{ ansible_env.HOME }}/.cargo/rustup/bin"
+    creates: "{{ ansible_env.HOME }}/.cargo/bin/rustup"
 #- name: Install paru on Arch Linux
-#  ansible.builtin.include_tasks: paru.yaml
+#  ansible.builtin.include_tasks: roles/common/tasks/paru.yaml
 #  when: ansible_distribution == 'Archlinux'
-

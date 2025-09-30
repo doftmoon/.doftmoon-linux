@@ -3,7 +3,6 @@
 
 - name: Install sandboxed apps via flatpak
   ansible.builtin.import_tasks: flatpak.yaml
-
-- name: Install packages from the AUR
-  ansible.builtin.import_tasks: paru.yaml
-  when: ansible_distribution == 'Archlinux'
+#- name: Install packages from the AUR
+#  ansible.builtin.import_tasks: roles/get_apps/tasks/paru.yaml
+#  when: ansible_distribution == 'Archlinux'

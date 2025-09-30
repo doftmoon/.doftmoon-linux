@@ -1,29 +1,31 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # put in ~/.local/bin/session-picker
 # written by doftmoon to manage the system according to the env
-setopt -e
+set -euo pipefail
 source doftmoon-shell-utils
 
+TERMINAL="ghostty -e tmux_sessions a code"
+BROWSER="app.zen_browser.zen"
+AUDIO="com.spotify.Client"
 MONITOR_PRIMARY='eDP-1'
 MONITOR_SECONDARY='HDMI-A-1'
-
 
 home_profile() {
    info 'Activating HOME profile...'
    #firewall-configer trusted
 
-   hyprctl dispatch exec "[workspace 1 silent]" ghostty
-   hyprctl dispatch exec "[workspace 2 silent]" app.zen_browser.zen
-   hyprctl dispatch exec "[workspace 4 silent]" com.spotify.Client
+   hyprctl dispatch exec "[workspace 1 silent]" $TERMINAL
+   hyprctl dispatch exec "[workspace 2 silent]" $BROWSER
+   hyprctl dispatch exec "[workspace 4 silent]" $AUDIO
 }
 
 work_profile() {
    info 'Activating WORK profile...'
    #firewall-configer trusted
 
-   hyprctl dispatch exec "[workspace 1 silent]" ghostty
-   hyprctl dispatch exec "[workspace 2 silent]" app.zen_browser.zen
-   hyprctl dispatch exec "[workspace 4 silent]" com.spotify.Client
+   hyprctl dispatch exec "[workspace 1 silent]" $TERMINAL
+   hyprctl dispatch exec "[workspace 2 silent]" $BROWSER
+   hyprctl dispatch exec "[workspace 4 silent]" $AUDIO
 }
 
 public_profile() {
@@ -32,7 +34,7 @@ public_profile() {
    #firewall-configer public
    iwctl station wlan0 scan
 
-   hyprctl dispatch exec "[workspace 1 silent]" ghostty
+   hyprctl dispatch exec "[workspace 1 silent]" $TERMINAL
 }
 
 picker() {
@@ -57,6 +59,7 @@ picker() {
    esac
 
    info "Session setup complete."
+   sleep 1
 }
 
 main() {

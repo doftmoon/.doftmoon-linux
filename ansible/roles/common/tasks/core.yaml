@@ -36,4 +36,3 @@
       ansible.builtin.package:
         name: bluez-utils
         state: present
-#- name: Install media

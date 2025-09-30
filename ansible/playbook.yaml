@@ -12,8 +12,8 @@
     - role: get_apps
       tags: ["3", "apps"]
 
-    - role: security
-      tags: ["4", "sec"]
+    #- role: security
+    #  tags: ["4", "sec"]
 
     - role: dotfiles
       tags: ["5", "dotfiles"]
