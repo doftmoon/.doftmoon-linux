@@ -1,0 +1,18 @@
+- name: Install Zen browser via flatpak
+  community.general.flatpak:
+    name: app.zen_browser.zen
+    state: present
+    remote: flathub
+
+- name: Install Spotify via flatpak
+  community.general.flatpak:
+    name: com.spotify.Client
+    state: present
+    remote: flathub
+  when:
+
+- name: Install PolyMC via flatpak
+  community.general.flatpak:
+    name: org.polymc.PolyMC
+    state: present
+    remote: flathub

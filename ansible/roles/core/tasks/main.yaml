@@ -1,0 +1,9 @@
+- name: Install core utils/services
+  ansible.builtin.import_tasks: roles/core/tasks/core.yaml
+  when: not ephemeral
+
+#- name: Install user-preferenced utils/services/apps
+#  ansible.builtin.import_tasks: custom.yaml
+
+- name: Install common managers (flatpak, homebrew, nvm, pyenv, cargo and etc)
+  ansible.builtin.import_tasks: roles/core/tasks/managers.yaml

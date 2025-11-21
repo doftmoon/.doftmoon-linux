@@ -1,19 +1,54 @@
 - name: Configure my Linux
   hosts: localhost
-  gather_facts: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: Gather needed facts
+      ansible.builtin.setup:
+        gather_subset:
+          - "!all"
+          - "!min"
+          - "env"
+          - "user_id"
+          - "platform"
+          - "distribution"
+
+    - name: Set device and profile type
+      ansible.builtin.set_fact:
+        ephemeral: >-
+          {{ ansible_env.CODESPACES | default(false) or
+            ansible_env.REMOTE_CONTAINER_IPC | default(false) or
+            ansible_user_id in ["root", "ubuntu", "vagrant", "vscode"] }}
+        personal: >-
+          {{ (ansible_user_id | default('')) == "doftmoon" or
+            ansible_hostname == "doftmoon" }}
+        ubuntu24lts: >-
+          {{ ansible_distribution == "Ubuntu" | default(true) and
+            ansible_distribution_major_version | int >= 24 }}
+
+    - name: Debug
+      ansible.builtin.debug:
+        msg:
+          - "Is Ephemeral: {{ ephemeral }}"
+          - "Is personal: {{ personal }}"
+          - "Is Ubuntu 24 lts: {{ ubuntu24lts }}"
 
   roles:
-    - role: common
-      tags: ["1", "common", "core"]
+    - role: core
+      tags: ["1", "core", "common", "base"]
 
     - role: desktop
       tags: ["2", "desktop"]
+      when: not ephemeral | bool
 
-    - role: get_apps
+    - role: get_packages
       tags: ["3", "apps"]
 
     #- role: security
     #  tags: ["4", "sec"]
+    #
+    #- role: system_configs
+    #  tags: ["5", "sys_conf"]
 
     - role: dotfiles
       tags: ["5", "dotfiles"]

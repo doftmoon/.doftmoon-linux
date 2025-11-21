@@ -14,15 +14,21 @@
       ansible.builtin.package:
         name: pipewire-alsa
         state: present
+      when: not ubuntu24lts
 
-    - name: Install pipewire-jack
-      ansible.builtin.package:
-        name: pipewire-jack
-        state: present
+    #- name: Install pipewire-jack
+    #  ansible.builtin.package:
+    #    name: pipewire-jack
+    #    state: present
 
     - name: Install alsa-utils
       ansible.builtin.package:
         name: alsa-utils
+        state: present
+
+    - name: Install pipewire
+      ansible.builtin.package:
+        name: wireplumber
         state: present
 
 - name: Install bluetooth

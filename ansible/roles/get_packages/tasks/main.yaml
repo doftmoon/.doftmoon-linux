@@ -1,0 +1,39 @@
+- name: Make lists for packages
+  ansible.builtin.set_fact:
+    native_list: []
+    brew_list: []
+    flatpak_list: []
+
+- name: Populate lists
+  ansible.builtin.set_fact:
+    native_list: "{{ native_list + [package_name] if method == 'native' and package_name else native_list }}"
+    brew_list: "{{ brew_list + [package_name] if method == 'brew' and package_name else brew_list }}"
+    flatpak_list: "{{ flatpak_list + [package_name] if method == 'flatpak' and package_name else flatpak_list }}"
+  vars:
+    details: "{{ package_details[item] | default({}) }}"
+    package_name: "{{ details.name | default(item) }}"
+    method: "{{ details.method | default('native') }}"
+  loop: "{{ package_list }}"
+
+- name: Debug
+  ansible.builtin.debug:
+    msg: "{{ native_list }} AND {{ brew_list }} AND {{ flatpak_list }}"
+
+- name: Install packages via native package manager
+  ansible.builtin.package:
+    name: "{{ native_list }}"
+    state: present
+  when: native_list | length > 0
+  become: true
+
+- name: Install packages via brew
+  ansible.builtin.homebrew:
+    name: "{{ brew_list }}"
+    state: present
+  when: brew_list | length > 0 and ansible_os_family != "Archlinux"
+
+- name: Install packages via flatpak
+  ansible.builtin.flatpak:
+    name: "{{ flatpak_list }}"
+    state: present
+  when: flatpak_list | length > 0 and not ephemeral | bool

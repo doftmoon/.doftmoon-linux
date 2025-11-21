@@ -1,3 +1,4 @@
-# ansible related
-.ansible/
+.ansible
+.vagrant
+.cache
 *.retry

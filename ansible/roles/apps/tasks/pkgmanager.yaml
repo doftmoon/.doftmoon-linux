@@ -1,0 +1,14 @@
+- name: Install zsh via package manager
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Install tmux via package manager
+  ansible.builtin.package:
+    name: tmux
+    state: present
+
+- name: Install zellij via package manager
+  ansible.builtin.package:
+    name: zellij
+    state: present

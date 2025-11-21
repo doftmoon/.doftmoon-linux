@@ -1,0 +1,48 @@
+- name: Install flatpak
+  block:
+    - name: Ensure flatpack is installed
+      ansible.builtin.package:
+        name: flatpak
+        state: present
+      become: true
+
+    - name: Add the Flathub flatpak repository remote
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+      become: true
+
+    - name: Install Flatseal via flatpak
+      community.general.flatpak:
+        name: com.github.tchx84.Flatseal
+        state: present
+        remote: flathub
+      become: false
+  when: not ephemeral | bool
+
+- name: Install Homebrew
+  ansible.builtin.shell: >
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  become: true
+  args:
+    creates: "/home/linuxbrew/.linuxbrew"
+  when: ansible_os_family != "Archlinux"
+
+- name: Install nvm
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+#- name: Install pyenv
+#  ansible.builtin.shell: >
+#    curl -fsSL https://pyenv.run | bash
+#  args:
+#    creates: "{{ ansible_env.HOME }}/.pyenv/bin"
+
+- name: Install rustup
+  ansible.builtin.shell: >
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  args:
+    creates: "{{ ansible_env.HOME }}/.cargo/bin/rustup"

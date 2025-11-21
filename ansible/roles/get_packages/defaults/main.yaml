@@ -1,0 +1,50 @@
+package_list:
+  # Core
+  - git
+  - curl
+  - zsh
+  - tmux
+  - neovim
+  # Utils cli/tui
+  - eza
+  - fd
+  - fzf
+  - bat
+  - zoxide
+  - repgrep
+  - btop
+  # Tools
+  #- ghostty
+  - docker
+  - docker-compose
+  #- vagrant
+  #- dbeaver
+
+package_details:
+  neovim:
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
+
+  tmux:
+    method: "{{ 'brew' if ansible_distribution == 'Ubuntu' else 'native' }}"
+
+  eza:
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
+
+  fd:
+    #name: "{{ 'fd-find' if ansible_distribution == 'Ubuntu' else 'fd' }}"
+    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+
+  fzf:
+    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+
+  bat:
+    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+
+  zoxide:
+    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+
+  ripgrep:
+    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+
+  btop:
+    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"

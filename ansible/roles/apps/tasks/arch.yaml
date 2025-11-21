@@ -1,0 +1,14 @@
+- name: Install blueman via package manager
+  ansible.builtin.pacman:
+    name: blueman
+    state: present
+
+- name: Install ghostty via package manager
+  ansible.builtin.pacman:
+    name: ghostty
+    state: present
+
+- name: Install neovim via package manager
+  ansible.builtin.pacman:
+    name: neovim
+    state: present
