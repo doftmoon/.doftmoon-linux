@@ -4,6 +4,7 @@
       ansible.builtin.package:
         name: chezmoi
         state: present
+      become: true
       when: ansible_facts["os_family"] == "Archlinux"
 
     - name: Install chezmoi on Ubuntu
@@ -18,5 +19,5 @@
     creates: "{{ ansible_facts['user_dir'] }}/.local/share/chezmoi"
 
 - name: Apply dotfiles with chezmoi
-  ansible.builtin.command: "{{ ansible_facts['user_dir'] }}/.local/bin/chezmoi apply"
+  ansible.builtin.command: chezmoi apply
   changed_when: true

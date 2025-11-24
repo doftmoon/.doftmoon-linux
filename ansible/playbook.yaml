@@ -29,7 +29,7 @@
     - name: Debug
       ansible.builtin.debug:
         msg:
-          - "Is Ephemeral: {{ ephemeral }}"
+          - "Is ephemeral: {{ ephemeral }}"
           - "Is personal: {{ personal }}"
           - "Is Ubuntu 24 lts: {{ ubuntu24lts }}"
 

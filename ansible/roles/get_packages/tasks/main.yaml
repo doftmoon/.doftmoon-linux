@@ -27,8 +27,8 @@
   ansible.builtin.package:
     name: "{{ native_list }}"
     state: present
-  when: native_list | length > 0
   become: true
+  when: native_list | length > 0
 
 - name: Install packages via brew
   community.general.homebrew:
