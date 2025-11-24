@@ -22,29 +22,20 @@ package_list:
 
 package_details:
   neovim:
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
-
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   tmux:
-    method: "{{ 'brew' if ansible_distribution == 'Ubuntu' else 'native' }}"
-
+    method: "{{ 'brew' if ansible_facts['distribution'] in ['Ubuntu'] else 'native' }}"
   eza:
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
-
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   fd:
-    #name: "{{ 'fd-find' if ansible_distribution == 'Ubuntu' else 'fd' }}"
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
-
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   fzf:
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
-
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   bat:
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
-
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   zoxide:
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
-
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   ripgrep:
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
-
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   btop:
-    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"

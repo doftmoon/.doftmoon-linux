@@ -1,6 +1,6 @@
 - name: Install Hyprland
   ansible.builtin.import_tasks: hyprland.yaml
-  when: ansible_distribution == 'Archlinux'
+  when: ansible_facts["distribution"] == "Archlinux"
 #- name: Install GNOME
 #  ansible.builtin.import_tasks: gnome.yaml
 #  when: ansible_distribution == 'ArchLinux'

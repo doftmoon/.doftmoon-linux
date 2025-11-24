@@ -1,19 +1,22 @@
-- name: Chezmoi installed
-  ansible.builtin.shell: command -v chezmoi
-  register: chezmoi_exists
-  ignore_errors: true
-  changed_when: false
-
 - name: Install chezmoi
-  ansible.builtin.shell: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "{{ ansible_env.HOME }}/.local/bin"'
-  when: chezmoi_exists.rc != 0
-  changed_when: true
+  block:
+    - name: Install chezmoi on Archlinux
+      ansible.builtin.package:
+        name: chezmoi
+        state: present
+      when: ansible_facts["os_family"] == "Archlinux"
+
+    - name: Install chezmoi on Ubuntu
+      ansible.builtin.brew:
+        name: chezmoi
+        state: present
+      when: ansible_facts["distribution"] == "Ubuntu"
 
 - name: Init chezmoi with dotfiles repo
-  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/chezmoi init {{ github_user }}"
+  ansible.builtin.command: chezmoi init "{{ github_user }}"
   args:
-    creates: "{{ ansible_env.HOME }}/.local/share/chezmoi"
+    creates: "{{ ansible_facts['user_dir'] }}/.local/share/chezmoi"
 
 - name: Apply dotfiles with chezmoi
-  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/chezmoi apply"
+  ansible.builtin.command: "{{ ansible_facts['user_dir'] }}/.local/bin/chezmoi apply"
   changed_when: true

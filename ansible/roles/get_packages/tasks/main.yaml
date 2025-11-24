@@ -11,13 +11,17 @@
     flatpak_list: "{{ flatpak_list + [package_name] if method == 'flatpak' and package_name else flatpak_list }}"
   vars:
     details: "{{ package_details[item] | default({}) }}"
-    package_name: "{{ details.name | default(item) }}"
     method: "{{ details.method | default('native') }}"
+    package_name: "{{ details.name | default(item) }}"
   loop: "{{ package_list }}"
 
 - name: Debug
   ansible.builtin.debug:
-    msg: "{{ native_list }} AND {{ brew_list }} AND {{ flatpak_list }}"
+    msg:
+      - "Packages to be installed"
+      - "Native pkg mgr: {{ native_list }}"
+      - "Linuxbrew: {{ brew_list }}"
+      - "Flatpak: {{ flatpak_list }}"
 
 - name: Install packages via native package manager
   ansible.builtin.package:
@@ -27,13 +31,13 @@
   become: true
 
 - name: Install packages via brew
-  ansible.builtin.homebrew:
+  community.general.homebrew:
     name: "{{ brew_list }}"
     state: present
-  when: brew_list | length > 0 and ansible_os_family != "Archlinux"
+  when: brew_list | length > 0 and ansible_facts["os_family"] != "Archlinux"
 
 - name: Install packages via flatpak
-  ansible.builtin.flatpak:
+  community.general.flatpak:
     name: "{{ flatpak_list }}"
     state: present
   when: flatpak_list | length > 0 and not ephemeral | bool

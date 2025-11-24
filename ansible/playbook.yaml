@@ -16,15 +16,15 @@
     - name: Set device and profile type
       ansible.builtin.set_fact:
         ephemeral: >-
-          {{ ansible_env.CODESPACES | default(false) or
-            ansible_env.REMOTE_CONTAINER_IPC | default(false) or
-            ansible_user_id in ["root", "ubuntu", "vagrant", "vscode"] }}
+          {{ ansible_facts["env.CODESPACES"] | default(false) or
+            ansible_facts["env.REMOTE_CONTAINER_IPC"] | default(false) or
+            ansible_facts["user_id"] in ["root", "ubuntu", "vagrant", "vscode"] }}
         personal: >-
-          {{ (ansible_user_id | default('')) == "doftmoon" or
-            ansible_hostname == "doftmoon" }}
+          {{ (ansible_facts["user_id"] | default("")) == "doftmoon" or
+            ansible_facts["user_id"] == "doftmoon" }}
         ubuntu24lts: >-
-          {{ ansible_distribution == "Ubuntu" | default(true) and
-            ansible_distribution_major_version | int >= 24 }}
+          {{ ansible_facts["distribution"] == "Ubuntu" | default(true) and
+            ansible_facts["distribution_major_version"] | int >= 24 }}
 
     - name: Debug
       ansible.builtin.debug:
@@ -46,11 +46,11 @@
 
     #- role: security
     #  tags: ["4", "sec"]
-    #
+
     #- role: system_configs
     #  tags: ["5", "sys_conf"]
 
-    #- role: dotfiles
-    #  tags: ["5", "dotfiles"]
-    #  vars:
-    #    github_user: "doftmoon"
+    - role: dotfiles
+      tags: ["5", "dotfiles"]
+      vars:
+        github_user: "doftmoon"
