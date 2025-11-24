@@ -7,7 +7,7 @@
       when: ansible_facts["os_family"] == "Archlinux"
 
     - name: Install chezmoi on Ubuntu
-      community.general.brew:
+      community.general.homebrew:
         name: chezmoi
         state: present
       when: ansible_facts["distribution"] == "Ubuntu"
