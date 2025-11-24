@@ -44,3 +44,4 @@
         name: bluez-utils
         state: present
       when: ansible_facts["os_family"] == "Archlinux"
+  become: true

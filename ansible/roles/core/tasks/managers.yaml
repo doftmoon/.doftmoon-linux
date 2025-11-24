@@ -4,13 +4,14 @@
       ansible.builtin.package:
         name: flatpak
         state: present
-      #become: true
+      become: true
 
     - name: Install GNOME plugin for Ubuntu24LTS
       ansible.builtin.apt:
         name: gnome-software-plugin-flatpak
         state: present
         update_cache: true
+      become: true
       when: ubuntu24lts | bool
 
     - name: Add the Flathub flatpak repository remote
