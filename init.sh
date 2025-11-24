@@ -10,8 +10,6 @@ CURRENT_USER=$(whoami)
 
 WORK_HOST='ThinkPad'
 
-PROFILE=''
-
 GIT_REPO="https://github.com/$USER/.$USER-linux.git"
 
 ensure_not_root() {
@@ -129,18 +127,9 @@ ensure_latest_repo() {
    fi
 }
 
-check_user() {
-   if [[ "$USER" != "$CURRENT_USER" ]]; then
-      warn "The user that is running this bootstrap is different to creator $USER"
-   else
-      info "New installation, Master? >_<"
-      info "or...you forgot that everything already have been installed..."
-   fi
-}
-
 run_ansible() {
    info 'Starting ansible play...'
-   (cd ansible && ~/.local/pipx/venvs/ansible/bin/ansible-playbook -K playbook.yaml)
+   (cd ansible && ansible-playbook -K playbook.yaml)
 }
 
 main() {
@@ -148,7 +137,14 @@ main() {
    install_deps
    install_ansible
    ensure_latest_repo
-   check_user
+
+   if [[ "$USER" != "$CURRENT_USER" ]]; then
+      warn "The user that is running this bootstrap is different to creator $USER"
+   else
+      info "New installation, Master? >_<"
+      info "or...you forgot that everything already have been installed..."
+   fi
+
    #choose_installation
    #check_device
    run_ansible

@@ -32,19 +32,19 @@ package_details:
 
   fd:
     #name: "{{ 'fd-find' if ansible_distribution == 'Ubuntu' else 'fd' }}"
-    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
 
   fzf:
-    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
 
   bat:
-    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
 
   zoxide:
-    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
 
   ripgrep:
-    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
 
   btop:
-    method: "{{ 'brew' if ansible_os_family == 'Archlinux' else 'brew' }}"
+    method: "{{ 'native' if ansible_os_family == 'Archlinux' else 'brew' }}"
