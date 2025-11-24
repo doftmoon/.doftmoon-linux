@@ -12,12 +12,6 @@ WORK_HOST='ThinkPad'
 
 GIT_REPO="https://github.com/$USER/.$USER-linux.git"
 
-ensure_not_root() {
-   if [[ "$EUID" -eq 0 ]]; then
-      error "Don't run as root!"
-   fi
-}
-
 info() {
    if command -v gum &>/dev/null; then
       gum style --foreground 10 "$1"
@@ -93,12 +87,13 @@ install_deps() {
                sudo mkdir -p /etc/apt/keyrings
                curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
                echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+               sudo apt update -y
                sudo apt install gum -y
             else
                warn "Canceled operation"
             fi
          fi
-         sudo apt autoremove
+         sudo apt autoremove -y
          ;;
       *) error "Cannot install dependecies automatically" ;;
    esac
@@ -108,7 +103,7 @@ install_deps() {
 install_ansible() {
    info 'Checking for ansible installation...'
    if ! command -v ansible &>/dev/null; then
-      pipx install ansible
+      pipx install ansible-core
       pipx ensurepath
       info 'Ansible successfully installed!'
    else
@@ -133,7 +128,9 @@ run_ansible() {
 }
 
 main() {
-   ensure_not_root
+   if [[ "$EUID" -eq 0 ]]; then
+      error "Don't run as root!"
+   fi
    install_deps
    install_ansible
    ensure_latest_repo
