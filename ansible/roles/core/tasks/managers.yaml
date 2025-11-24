@@ -10,7 +10,7 @@
       ansible.builtin.apt:
         name: gnome-software-plugin-flatpak
         state: present
-        update_chache: true
+        update_cache: true
       when: ubuntu24lts | bool
 
     - name: Add the Flathub flatpak repository remote
