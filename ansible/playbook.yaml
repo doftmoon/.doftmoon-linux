@@ -3,7 +3,7 @@
   gather_facts: false
 
   pre_tasks:
-    - name: Gather needed facts
+    - name: Gather only needed facts
       ansible.builtin.setup:
         gather_subset:
           - "!all"
@@ -50,7 +50,7 @@
     #- role: system_configs
     #  tags: ["5", "sys_conf"]
 
-    - role: dotfiles
-      tags: ["5", "dotfiles"]
-      vars:
-        github_user: "doftmoon"
+    #- role: dotfiles
+    #  tags: ["5", "dotfiles"]
+    #  vars:
+    #    github_user: "doftmoon"

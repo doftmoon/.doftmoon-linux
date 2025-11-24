@@ -15,8 +15,8 @@ package_list:
   - btop
   # Tools
   #- ghostty
-  - docker
-  - docker-compose
+  #- docker
+  #- docker-compose
   #- vagrant
   #- dbeaver
 

@@ -105,6 +105,7 @@ install_ansible() {
    if ! command -v ansible &>/dev/null; then
       pipx install ansible-core
       pipx ensurepath
+      ansible-galaxy collection install community.general
       info 'Ansible successfully installed!'
    else
       info 'Ansible is already installed!'

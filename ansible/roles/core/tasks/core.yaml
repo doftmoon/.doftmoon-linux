@@ -14,12 +14,12 @@
       ansible.builtin.package:
         name: pipewire-alsa
         state: present
-      when: not ubuntu24lts
+      when: ansible_os_family == 'Archlinux'
 
-    #- name: Install pipewire-jack
-    #  ansible.builtin.package:
-    #    name: pipewire-jack
-    #    state: present
+    - name: Install pipewire-jack
+      ansible.builtin.package:
+        name: pipewire-jack
+        state: present
 
     - name: Install alsa-utils
       ansible.builtin.package:
@@ -42,3 +42,4 @@
       ansible.builtin.package:
         name: bluez-utils
         state: present
+      when: ansible_os_family == 'Archlinux'

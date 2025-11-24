@@ -1,6 +1,6 @@
 - name: Install core utils/services
   ansible.builtin.import_tasks: roles/core/tasks/core.yaml
-  when: not ephemeral
+  when: not ephemeral | bool
 
 #- name: Install user-preferenced utils/services/apps
 #  ansible.builtin.import_tasks: custom.yaml
