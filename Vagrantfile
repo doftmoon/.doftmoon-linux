@@ -5,7 +5,7 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.synced_folder ".", "/home/vagrant/.doftmoon-linux", disabled: false
+  config.vm.synced_folder ".", "/home/vagrant/.doftmoon-linux", disabled: true
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
@@ -43,6 +43,7 @@ Vagrant.configure("2") do |config|
     ub.vm.provision "shell", inline: <<-SHELL
       sudo apt-get update -y
       sudo apt-get install git -y
+      git clone https://github.com/doftmoon/.doftmoon-linux.git /home/vagrant/.doftmoon-linux
     SHELL
   end
 end

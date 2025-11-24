@@ -28,11 +28,12 @@
   when: not ephemeral | bool
 
 - name: Install Homebrew
-  ansible.builtin.shell: >
-    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ansible.builtin.shell:
+    cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  environment:
+    NONINTERACTIVE: "1"
   args:
     creates: "/home/linuxbrew/.linuxbrew"
-  become: true
   when: ansible_facts["os_family"] != "Archlinux"
 
 - name: Install nvm
