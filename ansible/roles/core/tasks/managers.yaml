@@ -4,14 +4,12 @@
       ansible.builtin.package:
         name: flatpak
         state: present
-      become: true
 
     - name: Install GNOME plugin for Ubuntu24LTS
       ansible.builtin.apt:
         name: gnome-software-plugin-flatpak
         state: present
         update_cache: true
-      become: true
       when: ubuntu24lts | bool
 
     - name: Add the Flathub flatpak repository remote
@@ -19,7 +17,6 @@
         name: flathub
         state: present
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-      #become: true
 
     - name: Install Flatseal via flatpak
       community.general.flatpak:
@@ -27,14 +24,15 @@
         state: present
         remote: flathub
       become: false
+  become: true
   when: not ephemeral | bool
 
 - name: Install Homebrew
   ansible.builtin.shell: >
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  #become: true
   args:
     creates: "/home/linuxbrew/.linuxbrew"
+  become: true
   when: ansible_facts["os_family"] != "Archlinux"
 
 - name: Install nvm
