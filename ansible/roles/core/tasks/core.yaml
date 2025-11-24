@@ -30,6 +30,7 @@
       ansible.builtin.package:
         name: wireplumber
         state: present
+  become: true
 
 - name: Install bluetooth
   block:
