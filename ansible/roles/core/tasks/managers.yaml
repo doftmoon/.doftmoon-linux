@@ -47,6 +47,7 @@
         NONINTERACTIVE: "1"
       args:
         creates: "/home/linuxbrew/.linuxbrew/bin"
+      become: true
       become_user: "{{ ansible_facts['user_id'] }}"
 
 - name: Install nvm

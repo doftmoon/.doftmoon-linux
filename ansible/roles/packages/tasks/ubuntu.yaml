@@ -1,0 +1,8 @@
+- name: Remove firefox snap
+  ansible.builtin.apt:
+    name: firefox
+    state: absent
+  become: true
+
+- name: Add docker repo
+  ansible.builtin.shell: >

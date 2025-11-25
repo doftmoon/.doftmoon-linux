@@ -46,10 +46,10 @@
     # - role: security
     #   tags: ["4", "sec"]
 
-    # - role: system_configs
-    #   tags: ["5", "sys_conf"]
+    - role: config
+      tags: ["5", "confing"]
 
     - role: dotfiles
-      tags: ["5", "dotfiles"]
+      tags: ["6", "dotfiles"]
       vars:
         dotfiles_github_user: "doftmoon"
