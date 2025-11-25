@@ -1,4 +1,4 @@
-- name: Install application launcher {{ applauncher }}
+- name: Install application launcher {{ desktop_applauncher }}
   ansible.builtin.package:
     name: "{{ desktop_applauncher }}"
     state: present
@@ -8,7 +8,7 @@
     name: hyprland
     state: present
 
-- name: Install taskbar {{ taskbar }}
+- name: Install taskbar {{ desktop_taskbar }}
   ansible.builtin.package:
     name: "{{ desktop_taskbar }}"
     state: present
@@ -25,7 +25,7 @@
         name: slurp
         state: present
 
-- name: Install wallpaper setter {{ wallpaper }}
+- name: Install wallpaper setter {{ desktop_wallpaper }}
   ansible.builtin.package:
     name: "{{ desktop_wallpaper }}"
     state: present

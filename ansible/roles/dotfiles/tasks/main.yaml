@@ -15,7 +15,8 @@
       when: ansible_facts["distribution"] == "Ubuntu"
 
 - name: Init chezmoi with dotfiles repo
-  ansible.builtin.command: chezmoi init "{{ dotfiles_github_user }}"
+  ansible.builtin.shell: >
+    chezmoi init "{{ dotfiles_github_user }}"
   args:
     creates: "{{ ansible_facts['user_dir'] }}/.local/share/chezmoi"
 
