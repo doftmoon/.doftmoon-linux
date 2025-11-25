@@ -12,7 +12,6 @@
       ansible.builtin.apt:
         name: gnome-software-plugin-flatpak
         state: present
-        update_cache: true
       when: ubuntu24lts | bool
 
     - name: Add the Flathub flatpak repository remote
@@ -30,12 +29,11 @@
 
 - name: Install Homebrew
   become: true
-  become_user: "{{ ansible_facts['user_id'] }}"
   when: ansible_facts["os_family"] != "Archlinux"
   block:
     - name: Create home dir for homebrew
       ansible.builtin.file:
-        path: /home/linuxbrew
+        path: /home/linuxbrew/.linuxbrew
         state: directory
         owner: "{{ ansible_facts['user_id'] }}"
         group: "{{ ansible_facts['user_id'] }}"
@@ -48,7 +46,8 @@
       environment:
         NONINTERACTIVE: "1"
       args:
-        creates: "/home/linuxbrew/.linuxbrew"
+        creates: "/home/linuxbrew/.linuxbrew/bin"
+      become_user: "{{ ansible_facts['user_id'] }}"
 
 - name: Install nvm
   ansible.builtin.shell: >

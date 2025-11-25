@@ -20,8 +20,7 @@
             ansible_facts["env.REMOTE_CONTAINER_IPC"] | default(false) or
             ansible_facts["user_id"] in ["root", "ubuntu", "vagrant", "vscode"] }}
         personal: >-
-          {{ (ansible_facts["user_id"] | default("")) == "doftmoon" or
-            ansible_facts["user_id"] == "doftmoon" }}
+          {{ (ansible_facts["user_id"] | default("")) == "doftmoon" }}
         ubuntu24lts: >-
           {{ ansible_facts["distribution"] == "Ubuntu" | default(true) and
             ansible_facts["distribution_major_version"] | int >= 24 }}
