@@ -2,6 +2,7 @@ package_list:
   # Core
   - git
   - curl
+  - pass
   - zsh
   - tmux
   - neovim
@@ -11,7 +12,7 @@ package_list:
   - fzf
   - bat
   - zoxide
-  - repgrep
+  - ripgrep
   - btop
   # Tools
   #- ghostty

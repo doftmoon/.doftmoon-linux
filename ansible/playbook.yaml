@@ -41,14 +41,14 @@
       tags: ["2", "desktop"]
       when: not ephemeral | bool
 
-    - role: get_packages
+    - role: packages
       tags: ["3", "apps"]
 
-    #- role: security
-    #  tags: ["4", "sec"]
+    # - role: security
+    #   tags: ["4", "sec"]
 
-    #- role: system_configs
-    #  tags: ["5", "sys_conf"]
+    # - role: system_configs
+    #   tags: ["5", "sys_conf"]
 
     - role: dotfiles
       tags: ["5", "dotfiles"]

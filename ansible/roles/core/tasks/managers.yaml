@@ -1,4 +1,7 @@
 - name: Install flatpak
+  become: true
+  become_user: "{{ ansible_facts['user_id'] }}"
+  when: not ephemeral | bool
   block:
     - name: Ensure flatpack is installed
       ansible.builtin.package:
@@ -24,17 +27,28 @@
         state: present
         remote: flathub
       become: false
-  become: true
-  when: not ephemeral | bool
 
 - name: Install Homebrew
-  ansible.builtin.shell:
-    cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  environment:
-    NONINTERACTIVE: "1"
-  args:
-    creates: "/home/linuxbrew/.linuxbrew"
+  become: true
+  become_user: "{{ ansible_facts['user_id'] }}"
   when: ansible_facts["os_family"] != "Archlinux"
+  block:
+    - name: Create home dir for homebrew
+      ansible.builtin.file:
+        path: /home/linuxbrew
+        state: directory
+        owner: "{{ ansible_facts['user_id'] }}"
+        group: "{{ ansible_facts['user_id'] }}"
+        mode: 0660
+
+    - name: Download and install linuxbrew
+      ansible.builtin.shell:
+        cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      environment:
+        NONINTERACTIVE: "1"
+      args:
+        creates: "/home/linuxbrew/.linuxbrew"
+      become: true
 
 - name: Install nvm
   ansible.builtin.shell: >

@@ -2,13 +2,11 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 doftmoon
 #
-# Script to install all dep and automate init process
+# Script to install all deps and automate init process
 set -euo pipefail
 
 USER='doftmoon'
 CURRENT_USER=$(whoami)
-
-WORK_HOST='ThinkPad'
 
 GIT_REPO="https://github.com/$USER/.$USER-linux.git"
 
@@ -106,6 +104,7 @@ install_ansible() {
       pipx install ansible-core
       pipx ensurepath
       source ~/.bashrc
+      sleep 1
       ansible-galaxy collection install community.general
       info 'Ansible successfully installed!'
    else
@@ -141,13 +140,11 @@ main() {
       warn "The user that is running this bootstrap is different to creator $USER"
    else
       info "New installation, Master? >_<"
-      info "or...you forgot that everything already have been installed..."
+      info "or...you forgot that everything already has been installed..."
    fi
 
-   #choose_installation
-   #check_device
    run_ansible
-   info 'Bootstrap complete!'
+   info 'Bootstrap complete! Enjoy~'
 }
 
 main

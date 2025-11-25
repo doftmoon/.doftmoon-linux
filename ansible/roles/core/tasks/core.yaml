@@ -1,4 +1,5 @@
 - name: Install Audio
+  become: true
   block:
     - name: Install pipewire
       ansible.builtin.package:
@@ -30,9 +31,9 @@
       ansible.builtin.package:
         name: wireplumber
         state: present
-  become: true
 
 - name: Install bluetooth
+  become: true
   block:
     - name: Install bluez
       ansible.builtin.package:
@@ -44,4 +45,3 @@
         name: bluez-utils
         state: present
       when: ansible_facts["os_family"] == "Archlinux"
-  become: true

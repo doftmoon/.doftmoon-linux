@@ -41,9 +41,10 @@ Vagrant.configure("2") do |config|
     ub.vm.hostname = "ubuntu-test"
 
     ub.vm.provision "shell", inline: <<-SHELL
-      sudo apt-get update -y
-      sudo apt-get install git -y
+      apt-get update -y
+      apt-get install git -y
       git clone https://github.com/doftmoon/.doftmoon-linux.git /home/vagrant/.doftmoon-linux
+      chown -R vagrant:vagrant /home/vagrant/.doftmoon-linux
     SHELL
   end
 end

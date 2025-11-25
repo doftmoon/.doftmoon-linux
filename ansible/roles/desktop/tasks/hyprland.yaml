@@ -1,6 +1,6 @@
 - name: Install application launcher {{ applauncher }}
   ansible.builtin.package:
-    name: "{{ applauncher }}"
+    name: "{{ desktop_applauncher }}"
     state: present
 
 - name: Install Hyprland itself
@@ -10,14 +10,14 @@
 
 - name: Install taskbar {{ taskbar }}
   ansible.builtin.package:
-    name: "{{ taskbar }}"
+    name: "{{ desktop_taskbar }}"
     state: present
 
 - name: Install screen capture
   block:
     - name: Install screencapture util
       ansible.builtin.package:
-        name: "{{ screencapture }}"
+        name: "{{ desktop_screencapture }}"
         state: present
 
     - name: Install screen location selecter (slurp)
@@ -27,5 +27,5 @@
 
 - name: Install wallpaper setter {{ wallpaper }}
   ansible.builtin.package:
-    name: "{{ wallpaper }}"
+    name: "{{ desktop_wallpaper }}"
     state: present
