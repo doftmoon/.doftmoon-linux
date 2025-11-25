@@ -39,7 +39,8 @@
         state: directory
         owner: "{{ ansible_facts['user_id'] }}"
         group: "{{ ansible_facts['user_id'] }}"
-        mode: 0660
+        mode: "0755"
+        recurse: true
 
     - name: Download and install linuxbrew
       ansible.builtin.shell:
@@ -48,7 +49,6 @@
         NONINTERACTIVE: "1"
       args:
         creates: "/home/linuxbrew/.linuxbrew"
-      become: true
 
 - name: Install nvm
   ansible.builtin.shell: >

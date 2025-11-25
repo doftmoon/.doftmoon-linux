@@ -53,4 +53,4 @@
     - role: dotfiles
       tags: ["5", "dotfiles"]
       vars:
-        github_user: "doftmoon"
+        dotfiles_github_user: "doftmoon"
