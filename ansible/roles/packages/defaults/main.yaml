@@ -15,11 +15,12 @@ package_list:
   - ripgrep
   - btop
   # Tools
+  - docker
+  - docker-compose
+  - zen
   #- ghostty
-  #- docker
-  #- docker-compose
   #- vagrant
-  #- dbeaver
+  - dbeaver
 
 package_details:
   neovim:
@@ -40,3 +41,13 @@ package_details:
     method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
   btop:
     method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'brew' }}"
+  docker:
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'skip' }}"
+  docker-compose:
+    method: "{{ 'native' if ansible_facts['os_family'] in ['Archlinux'] else 'skip' }}"
+  zen:
+    method: "flatpak"
+    name: "app.zen_browser.zen"
+  dbeaver:
+    method: "flatpak"
+    name: "io.dbeaver.DBeaverCommunity"
