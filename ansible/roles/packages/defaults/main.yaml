@@ -21,6 +21,7 @@ package_list:
   #- ghostty
   #- vagrant
   - dbeaver
+  - virtualbox
 
 package_details:
   neovim:
