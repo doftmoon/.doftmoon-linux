@@ -41,3 +41,7 @@
     name: "{{ flatpak_list }}"
     state: present
   when: flatpak_list | length > 0 and not ephemeral | bool
+
+- name: Install Ubuntu specific packages
+  ansible.builtin.include_tasks: roles/packages/tasks/ubuntu.yaml
+  when: ansible_facts["distribution"] == "Ubuntu"
